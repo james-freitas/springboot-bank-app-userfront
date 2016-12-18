@@ -60,6 +60,11 @@ public class UserServiceImpl implements UserService {
         return localUser;
     }
 
+    @Override
+    public User saveUser(User user) {
+        return userDao.save(user);
+    }
+
     public User findByUsername(String username) {
         return userDao.findByUsername(username);
     }
