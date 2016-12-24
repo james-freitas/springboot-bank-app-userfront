@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -63,6 +64,27 @@ public class UserServiceImpl implements UserService {
     @Override
     public User saveUser(User user) {
         return userDao.save(user);
+    }
+
+    @Override
+    public List<User> findUserList() {
+        return userDao.findAll();
+    }
+
+    @Override
+    public void enableUser(String username) {
+        User user = findByUsername(username);
+        user.setEnabled(true);
+        userDao.save(user);
+    }
+
+    @Override
+    public void disableUser(String username) {
+        User user = findByUsername(username);
+        user.setEnabled(false);
+        System.out.println(user.isEnabled());
+        userDao.save(user);
+        System.out.println(username + " is disabled.");
     }
 
     public User findByUsername(String username) {
